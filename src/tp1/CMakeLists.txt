@@ -1,0 +1,8 @@
+add_executable(averaging_filter averaging_filter.c)
+target_link_libraries(averaging_filter PRIVATE nrc)
+
+add_executable(edge_detection_grayscale edge_detection_grayscale.c)
+target_link_libraries(edge_detection_grayscale PRIVATE nrc m)
+
+add_executable(edge_detection_colors edge_detection_colors.c)
+target_link_libraries(edge_detection_colors PRIVATE nrc m)
