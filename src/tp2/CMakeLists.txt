@@ -1,0 +1,8 @@
+add_executable(binarization binarization.c)
+target_link_libraries(binarization PRIVATE nrc)
+
+add_executable(labelization labelization.c)
+target_link_libraries(labelization PRIVATE nrc)
+
+add_executable(labelization_interest_region_detection labelization_interest_region_detection.c)
+target_link_libraries(labelization_interest_region_detection PRIVATE nrc)
