@@ -79,11 +79,11 @@ int main(int argc, char **argv) {
     int max_y = INT_MIN;
     for (i = nrl + 1; i < nrh; i++) {
         for (j = ncl + 1; j < nch; j++) {
-            if (etiq_mat[i][j] == c_etiq) {
-                output_img[i][j].r = 255;
-                output_img[i][j].g = 255;
-                output_img[i][j].b = 255;
+            output_img[i][j].r = input_img[i][j];
+            output_img[i][j].g = input_img[i][j];
+            output_img[i][j].b = input_img[i][j];
 
+            if (etiq_mat[i][j] == c_etiq) {
                 sum_x += j;
                 num_x++;
                 sum_y += i;
@@ -98,22 +98,31 @@ int main(int argc, char **argv) {
     }
     int x = sum_x / num_x;
     int y = sum_y / num_y;
+    output_img[y - 1][x - 1].r = 255;
     output_img[y - 1][x - 1].g = 0;
     output_img[y - 1][x - 1].b = 0;
+    output_img[y - 1][x].r = 255;
     output_img[y - 1][x].g = 0;
     output_img[y - 1][x].b = 0;
+    output_img[y - 1][x + 1].r = 255;
     output_img[y - 1][x + 1].g = 0;
     output_img[y - 1][x + 1].b = 0;
+    output_img[y][x - 1].r = 255;
     output_img[y][x - 1].g = 0;
     output_img[y][x - 1].b = 0;
+    output_img[y][x].r = 255;
     output_img[y][x].g = 0;
     output_img[y][x].b = 0;
+    output_img[y][x + 1].r = 255;
     output_img[y][x + 1].g = 0;
     output_img[y][x + 1].b = 0;
+    output_img[y + 1][x - 1].r = 255;
     output_img[y + 1][x - 1].g = 0;
     output_img[y + 1][x - 1].b = 0;
+    output_img[y + 1][x].r = 255;
     output_img[y + 1][x].g = 0;
     output_img[y + 1][x].b = 0;
+    output_img[y + 1][x + 1].r = 255;
     output_img[y + 1][x + 1].g = 0;
     output_img[y + 1][x + 1].b = 0;
 

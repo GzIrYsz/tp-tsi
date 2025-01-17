@@ -10,7 +10,7 @@
 #define STR_(X) #X
 #define STR(X) STR_(X)
 
-#define WHITE_THRESHOLD 110
+#define WHITE_THRESHOLD 170
 
 int main(int argc, char **argv) {
     long nrl, nrh, ncl, nch;

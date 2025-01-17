@@ -39,7 +39,7 @@ int imax(int a, int b) {
 
 int main(int argc, char **argv) {
     long nrl, nrh, ncl, nch;
-    byte **input_img = LoadPGM_bmatrix("data/output/rice_binarized_avg_t110.pgm", &nrl, &nrh, &ncl, &nch);
+    byte **input_img = LoadPGM_bmatrix("data/input/rice.pgm", &nrl, &nrh, &ncl, &nch);
     byte **binarized = bmatrix(nrl, nrh, ncl, nch);
     int **etiq_mat = imatrix(nrl, nrh, ncl, nch);
     rgb8 **output_img = rgb8matrix(nrl, nrh, ncl, nch);
@@ -69,17 +69,17 @@ int main(int argc, char **argv) {
     int num_etiq = 1;
     for (i = nrl + 1; i < nrh; i++) {
         for (j = ncl + 1; j < nch; j++) {
-            if (input_img[i][j] == 0) {
+            if (binarized[i][j] == 0) {
                 etiq_mat[i][j] = 0;
-            } else if (input_img[i][j - 1] == input_img[i][j] && input_img[i - 1][j] != input_img[i][j]) {
+            } else if (binarized[i][j - 1] == binarized[i][j] && binarized[i - 1][j] != binarized[i][j]) {
                 etiq_mat[i][j] = etiq_mat[i][j - 1];
-            } else if (input_img[i - 1][j] == input_img[i][j] && input_img[i][j - 1] != input_img[i][j]) {
+            } else if (binarized[i - 1][j] == binarized[i][j] && binarized[i][j - 1] != binarized[i][j]) {
                 etiq_mat[i][j] = etiq_mat[i - 1][j];
-            } else if (input_img[i][j - 1] != input_img[i][j] && input_img[i - 1][j] != input_img[i][j]) {
+            } else if (binarized[i][j - 1] != binarized[i][j] && binarized[i - 1][j] != binarized[i][j]) {
                 etiq_mat[i][j] = num_etiq++;
-            } else if (input_img[i][j - 1] == input_img[i][j] && input_img[i - 1][j] == input_img[i][j] && etiq_mat[i][j - 1] == etiq_mat[i - 1][j]) {
+            } else if (binarized[i][j - 1] == binarized[i][j] && binarized[i - 1][j] == binarized[i][j] && etiq_mat[i][j - 1] == etiq_mat[i - 1][j]) {
                 etiq_mat[i][j] = etiq_mat[i - 1][j];
-            } else if (input_img[i][j - 1] == input_img[i][j] && input_img[i - 1][j] == input_img[i][j] && etiq_mat[i][j - 1] != etiq_mat[i - 1][j]) {
+            } else if (binarized[i][j - 1] == binarized[i][j] && binarized[i - 1][j] == binarized[i][j] && etiq_mat[i][j - 1] != etiq_mat[i - 1][j]) {
                 etiq_mat[i][j] = imin(lookup_table[etiq_mat[i - 1][j]], etiq_mat[i][j - 1]);
                 lookup_table[etiq_mat[i][j]] = etiq_mat[i][j];
                 lookup_table[etiq_mat[i][j - 1]] = etiq_mat[i][j];
@@ -117,11 +117,11 @@ int main(int argc, char **argv) {
     int max_y = INT_MIN;
     for (i = nrl + 1; i < nrh; i++) {
         for (j = ncl + 1; j < nch; j++) {
-            if (etiq_mat[i][j] == c_etiq) {
-                output_img[i][j].r = 255;
-                output_img[i][j].g = 255;
-                output_img[i][j].b = 255;
+            output_img[i][j].r = input_img[i][j];
+            output_img[i][j].g = input_img[i][j];
+            output_img[i][j].b = input_img[i][j];
 
+            if (etiq_mat[i][j] == c_etiq) {
                 sum_x += j;
                 num_x++;
                 sum_y += i;
@@ -136,22 +136,31 @@ int main(int argc, char **argv) {
     }
     int x = sum_x / num_x;
     int y = sum_y / num_y;
+    output_img[y - 1][x - 1].r = 255;
     output_img[y - 1][x - 1].g = 0;
     output_img[y - 1][x - 1].b = 0;
+    output_img[y - 1][x].r = 255;
     output_img[y - 1][x].g = 0;
     output_img[y - 1][x].b = 0;
+    output_img[y - 1][x + 1].r = 255;
     output_img[y - 1][x + 1].g = 0;
     output_img[y - 1][x + 1].b = 0;
+    output_img[y][x - 1].r = 255;
     output_img[y][x - 1].g = 0;
     output_img[y][x - 1].b = 0;
+    output_img[y][x].r = 255;
     output_img[y][x].g = 0;
     output_img[y][x].b = 0;
+    output_img[y][x + 1].r = 255;
     output_img[y][x + 1].g = 0;
     output_img[y][x + 1].b = 0;
+    output_img[y + 1][x - 1].r = 255;
     output_img[y + 1][x - 1].g = 0;
     output_img[y + 1][x - 1].b = 0;
+    output_img[y + 1][x].r = 255;
     output_img[y + 1][x].g = 0;
     output_img[y + 1][x].b = 0;
+    output_img[y + 1][x + 1].r = 255;
     output_img[y + 1][x + 1].g = 0;
     output_img[y + 1][x + 1].b = 0;
 
