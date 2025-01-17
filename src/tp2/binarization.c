@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv) {
     long nrl, nrh, ncl, nch;
-    byte **input_img = LoadPGM_bmatrix("data/input/rice.pgm", &nrl, &nrh, &ncl, &nch);
+    byte **input_img = LoadPGM_bmatrix("data/input/route0.pgm", &nrl, &nrh, &ncl, &nch);
     byte **output_img = bmatrix(nrl, nrh, ncl, nch);
 
     int i, j;
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    SavePGM_bmatrix(output_img, nrl, nrh, ncl, nch, "data/output/rice_binarized_avg_t" STR(WHITE_THRESHOLD) ".pgm");
+    SavePGM_bmatrix(output_img, nrl, nrh, ncl, nch, "data/output/route0_binarized_avg_t" STR(WHITE_THRESHOLD) ".pgm");
 
     free_bmatrix(input_img, nrl, nrh, ncl, nch);
     free_bmatrix(output_img, nrl, nrh, ncl, nch);
