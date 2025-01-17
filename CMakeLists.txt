@@ -7,3 +7,4 @@ add_subdirectory(lib/nrc)
 
 add_subdirectory(src/tp1)
 add_subdirectory(src/tp2)
+add_subdirectory(src/tp3)
